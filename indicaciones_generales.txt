@@ -1,0 +1,15 @@
+Date = Plazos: 5Y = 5 años, 
+PK es Fecha, Moneda que nos los nombres de las hojas y el plazo
+el nombre de los archivos sera: "prueba_{dia}_[mes}_{año} (HECHO)
+1° verificacion que arriba ask abajo bid
+2° verificacion nombre de las hojas corresponde con nombre de filas
+3° verificacion si aparece una letra en las 2 columnas principales dos opciones, luego incluir 2 botones que indiquen si se ingoran las celdas o no
+4° incluir barra de progreso, indica pogreso de lectura del archivo con porcentaje y hoja donde se encuentra
+5° incluir boton de verificacion y subida por separado (HECHO)
+6° fecha seleccionada = nombre del archivo (HECHO)
+7° si son 0=>, marginarlos
+8° si aparecen plazos repetidos, se debe indica cual va (HECHO)
+9° si se encuentra un numero 0 o vacio en el plazo mas alto y bajo, marginarlos e ignorarlos, si aparece en medio, solo marginarlos
+10° marginar = aparecer en FORM de errores/incidencias (MEDIADOR)
+11° 2 FORMS extras y de incidendcias que se pueden ignorar y otro que se necesita reaccionar (PARA ESO ESTA EL MEDIADOR)
+12° Form extra que muestre los datos guardados (HECHO)

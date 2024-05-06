@@ -1,0 +1,185 @@
+RUTA AS-IS:
+Presionar boton "Escoger Excel"
+Función EscogerExcel()
+Devuelve:
+	fechaSeleccionada = Fecha obtenida del calendario
+	rutaArchivo = Ruta del archivo seleccionado
+	nombreArchivo = Nombre del archivo seleccionado
+	fechaArchivo = Fecha del archivo seleccionado
+	datosExcel = Array que contiene ruta, nombre y fecha del archivo
+
+ShowRuta ,muestra el nombre del archivo mediante suscripcion
+
+Función SobreescribirMediador()
+
+VINDICADORES:
+-Vindicador1 = Verifica que la fecha y la ruta existan y sean correctas
+-Vindicador2 = Verifica que el plazo sea de 2 caracteres siendo el primero un numero y el segundo "Y M W o D"
+-Vindicador3 = Verifica si la primera celda de la primera columna es un "DATE"
+-Vindicador4 = Verificar que solo hayan 2 "DATE"
+-Vindicador5 = Verificar que en la primera fila, en la columna C y E digan "Ask" al final
+-Vindicador6 = Verificar que en la misma fila que el segundo "DATE", en la columna C y E digan "Bid" al final
+-Vindicador7 = Verificar que el nombre de las hojas solo tengan 6 caracteres no numericos
+-Vindicador8 = Verificar que la primera mitad del nombre de cada hoja concuerde con los primeros 3 caracteres de las 2 celdas de columna C de las filas "DATE"
+-Vindicador9 = Verificar que la segunda mitad del nombre de cada hoja concuerde con los primeros 3 caracteres de las 2 celdas de columna E de las filas "DATE"
+-Vindicador10 = Verificar que en las celdas C -Ask/Bid y E -Ask/Bid tengan al medio la palabra Yield entre espacios
+-Vindicador11 = Verificar que los numeros sean positivos mayores a 0
+-Vindicador12 = Verificar que los plazos sean unicos no repetibles, si lo son mandar un mbox ademas del mediador
+-Vindicador13 = Verificar que inmediatamente despues de una celda "DATE" aparezca un plazo
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+RUTA TO-BE:
+Presionar boton "Escoger Excel"
+	Función EscogerExcel()
+	Devuelve:
+		fechaSeleccionada = Fecha obtenida del calendario
+		rutaArchivo = Ruta del archivo seleccionado
+		nombreArchivo = Nombre del archivo seleccionado
+		fechaArchivo = Fecha del archivo seleccionado
+		datosExcel = Array que contiene ruta, nombre y fecha del archivo
+	if (No concuerda fechaSeleccionada y fechaArchivo)
+		Preguntar si quiere cambiar la fecha del archivo y la seleccionada para que 	concuerde, si es archivo => renombrar archivo, si es seleccionada => 	cambiar cambiar fecha del calendario
+	
+	ShowRuta ,muestra el nombre del archivo mediante suscripcion
+
+	Función SobreescribirMediador()
+		Llama a Función LlenadoMediador()
+			En esta función se verifican y muestran los resultados de todos los vindicadores en el mediador, si todos estan conformes, habilitar boton de "Importacion", sino, cada vez que se 				presione 	salga un mensaje que diga "Revisar archivo Excel y Mediador" y se abra el excel.
+
+Presionar boton "Importacion"
+	Se importara informacion del Archivo Excel a la BD en SSMS, cuyas columnas a rellenar son: FECHA_REGISTRO, PLAZO, DIAS_PLAZO, NOMBRE_COLUMNA"C", 	NOMBRE_COLUMNA"E", DEMANDA_MONEDA"C", DEMANDA_MONEDA"E", OFERTA_MONEDA"C", OFERTA_MONEDA"E"
+
+	Funciones para FECHA_REGISTRO:
+		-Llamar a FechaArchivo y almacenarlo en un DateTime.Parse
+
+	Funciones para PLAZO:
+		-ObtenerWorkbook(string ruta) => IWorkbook
+		-ObtenerCantidadHojasExcel(IWorkbook workbook) => int
+		-ObtenerFilasValidasExcel(IWorkbook workbook, int hojaDeterminada) => List<int>
+		-ObtenerValorCeldaDeterminadaCadena(IWorkbook workbook, int hoja, int fila, int columna) => string
+
+	Funciones para DIAS_PLAZO:
+		-ObtenerWorkbook(string ruta) => IWorkbook
+		-ObtenerCantidadHojasExcel(IWorkbook workbook) => int
+		-ObtenerFilasValidasExcel(IWorkbook workbook, int hojaDeterminada) => List<int>
+		-ObtenerConversionPlazoInt(string plazo) => int
+
+	Funciones para MONEDA_COLUMNA"C":
+		-ObtenerWorkbook(string ruta) => IWorkbook
+		-ObtenerCantidadHojasExcel(IWorkbook workbook) => int
+		-ObtenerFilasValidasExcel(IWorkbook workbook, int hojaDeterminada) => List<int>
+		-ObtenerPrimeraMitadNombreHoja(IWorkbook workbook, int nHoja) => string
+
+	Funciones para MONEDA_COLUMNA"E":
+		-ObtenerWorkbook(string ruta) => IWorkbook
+		-ObtenerCantidadHojasExcel(IWorkbook workbook) => int
+		-ObtenerFilasValidasExcel(IWorkbook workbook, int hojaDeterminada) => List<int>
+		-ObtenerSegundaMitadNombreHoja(IWorkbook workbook, int nHoja) => string
+
+	Funciones para ASK_MONEDA"C":
+		-ObtenerWorkbook(string ruta) => IWorkbook
+		-ObtenerCantidadHojasExcel(IWorkbook workbook) => int
+		-ObtenerFilasValidasExcel(IWorkbook workbook, int hojaDeterminada) => List<int>
+		-ObtenerValorCeldaDeterminadaNumero(IWorkbook workbook, int hoja, int fila, int columna) => double
+
+	Funciones para ASK_MONEDA"E"
+		-ObtenerWorkbook(string ruta) => IWorkbook
+		-ObtenerCantidadHojasExcel(IWorkbook workbook) => int
+		-ObtenerFilasValidasExcel(IWorkbook workbook, int hojaDeterminada) => List<int>
+		-ObtenerValorCeldaDeterminadaNumero(IWorkbook workbook, int hoja, int fila, int columna) => double
+
+	Funciones para BID_MONEDA"C":
+		-ObtenerWorkbook(string ruta) => IWorkbook
+		-ObtenerCantidadHojasExcel(IWorkbook workbook) => int
+		-ObtenerFilasValidasExcel(IWorkbook workbook, int hojaDeterminada) => List<int>
+		-ObtenerValorCeldaDeterminadaNumero(IWorkbook workbook, int hoja, int fila, int columna) => double
+
+	Funciones para BID_MONEDA"E":
+		-ObtenerWorkbook(string ruta) => IWorkbook
+		-ObtenerCantidadHojasExcel(IWorkbook workbook) => int
+		-ObtenerFilasValidasExcel(IWorkbook workbook, int hojaDeterminada) => List<int>
+		-ObtenerValorCeldaDeterminadaNumero(IWorkbook workbook, int hoja, int fila, int columna) => double
+
+	Al presionar el boton teniendo todo conforme, se ejecutara una unica funcion llamada RegistrarObjetos() que llamara a las funciones anteriores para registrar cada una de las filas validas, 	luego de terminar de registrar todo, se cierra el form actual y se abre otro con una vista de la BD. Finalizando el proceso con un mbox que confirme la Importacion
+
+RUTAS OPCIONALES:
+Presionar botón "Vaciar BD"
+	Llama una funcion llamada "TrucarTablaSQL()" que se encarga de vaciar por completo la BD iniciando el id desde 1, se cerrara el form actual y se mostrar otro con la vista de la BD vacia.
+
+Presionar botón "Mostrar Reporte"
+	Abre el Mediador para ver que contiene
+
+
+VINDICADORES:
+-Vindicador1 = Verifica que la fecha y la ruta existan y sean correctas
+-Vindicador2 = Verifica que todos los plazos en todas las hojas sean de 2 caracteres siendo el primero un numero y el segundo "Y M W o D"
+-Vindicador3 = Verifica si la primera celda de la primera columna en cada hoja sea un "DATE"
+-Vindicador4 = Verificar que solo hayan 2 "DATE" en cada hoja
+-Vindicador5 = Verificar que en la primera fila, en la columna C y E digan "Ask" al final
+-Vindicador6 = Verificar que en la misma fila que el segundo "DATE", en la columna C y E digan "Bid" al final
+-Vindicador7 = Verificar que el nombre de las hojas solo tengan 6 caracteres no numericos
+-Vindicador8 = Verificar que la primera mitad del nombre de cada hoja concuerde con los primeros 3 caracteres de las 2 celdas de columna C de las filas "DATE"
+-Vindicador9 = Verificar que la segunda mitad del nombre de cada hoja concuerde con los primeros 3 caracteres de las 2 celdas de columna E de las filas "DATE"
+-Vindicador10 = Verificar que en las celdas C -Ask/Bid y E -Ask/Bid tengan al medio la palabra Yield entre espacios
+-Vindicador11 = Verificar que los numeros sean positivos mayores a 0
+-Vindicador12 = Verificar que los plazos sean unicos no repetibles, si lo son mandar un mbox ademas del mediador
+-Vindicador13 = Verificar que inmediatamente despues de una celda "DATE" aparezca un plazo
+-Vindicador14 = Verificar el valor de los vindicadores que no den problemas que obligatoriamente impidan la transferencia 
+-Vindicador15 = Verificar el valor de los vindicadores que den problemas que obligatoriamente impidan la transferencia 
+
+NUEVOS VINDICADORES
+
+-Vindicador1 = Verificar que la fecha y la ruta existan y sean correctas
+-Vindicador2 = Verificar que todas las celdas que contengan un plazo, sean de 2 caracteres siendo el primero un numero y el segundo "Y M W o D", en todas las hojas
+-Vindicador3 = Verificar que la primera celda de la primera columna en cada hoja sea un "DATE"
+-Vindicador4 = Verificar que solo hayan 2 "DATE" en cada hoja
+-Vindicador5 = Verificar que en la fila del primer "DATE", en la columna C y E digan "Ask" al final
+-Vindicador6 = Verificar que en la fila del segundo "DATE", en la columna E y E digan "Bid" al final
+-Vindicador7 = Verificar que el nombre de las hojas tengan 6 caracteres no numericos
+-Vindicador8 = Verificar que la primera mitad del nombre de cada hoja concuerde con los primeros 3 caracteres de las 2 celdas de columna C de las filas "DATE"
+-Vindicador9 = Verificar que la segunda mitad del nombre de cada hoja concuerde con los primeros 3 caracteres de las 2 celdas de columna E de las filas "DATE"
+-Vindicador10 = Verificar que en las celdas C -Ask/Bid y E -Ask/Bid tengan al medio la palabra Yield entre espacios
+-Vindicador11 = Verificar que los numeros sean positivos mayores a 0
+-Vindicador12 = Verificar que los plazos sean unicos no repetibles, si lo son mandar un mbox ademas del mediador
+-Vindicador13 = Verificar si el plazo que sigue inmediatamente a cada DATE está vacío o no, tambien el último plazo de cada bloque
+-Vindicador14 = Verificar el valor de los vindicadores que no den problemas que obligatoriamente impidan la transferencia
+-Vindicador15 = Verificar el valor de los vindicadores que den problemas que obligatoriamente impidan la transferencia
+
+NUEVOS MOSTRADORES
+
+-MostradorVindicador2 = Mostrar todas las celdas de plazos que no van acorde con el formato del vindicador 2
+-MostradorVindicador3 = Mostrar todas las hojas donde la primera celda no sea DATE
+-MostradorVindicador4 = Mostrar todas las hojas donde hayan más de 2 DATEs
+-MostradorVindicador5 = Mostrar todos los errores de encabezados en la fila del primer "DATE"
+-MostradorVindicador6 = Mostrar todos los errores de encabezados en la fila del segundo "DATE"
+-MostradorVindicador7 = Mostrar las hojas que tengan error en el nombre
+-MostradorVindicador8 = Mostrar las hojas que tengan error en las celdas de la columna C
+-MostradorVindicador9 = Mostrar las hojas que tengan error en las celdas de la columna E
+-MostradorVindicador10 = Mostrar las hojas con los encabezados mal hechos
+-MostradorVindicador11 = Mostrar todas las celdas cuyos numeros no cumplen con el vindicador
+-MostradorVindicador12 = Mostrar todos los plazos repetidos o vacios
+-MostradorVindicador13 =  Mostrar los plazos iniciales y finales que son invalidos
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

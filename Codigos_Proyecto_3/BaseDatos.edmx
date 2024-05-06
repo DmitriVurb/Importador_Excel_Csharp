@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BD_ImportadorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="lista_registros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_registro" Type="date" />
+          <Property Name="plazo" Type="varchar" MaxLength="2" />
+          <Property Name="dias_plazo" Type="int" />
+          <Property Name="Nombre_ColumnaC" Type="varchar" MaxLength="3" />
+          <Property Name="Nombre_ColumnaE" Type="varchar" MaxLength="3" />
+          <Property Name="Demanda_monedaC" Type="float" />
+          <Property Name="Demanda_monedaE" Type="float" />
+          <Property Name="Oferta_monedaC" Type="float" />
+          <Property Name="Oferta_monedaE" Type="float" />
+        </EntityType>
+        <EntityContainer Name="BD_ImportadorModelStoreContainer">
+          <EntitySet Name="lista_registros" EntityType="Self.lista_registros" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_ImportadorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BD_ImportadorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="lista_registros" EntityType="BD_ImportadorModel.lista_registros" />
+        </EntityContainer>
+        <EntityType Name="lista_registros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="0" />
+          <Property Name="plazo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="dias_plazo" Type="Int32" />
+          <Property Name="Nombre_ColumnaC" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre_ColumnaE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Demanda_monedaC" Type="Double" />
+          <Property Name="Demanda_monedaE" Type="Double" />
+          <Property Name="Oferta_monedaC" Type="Double" />
+          <Property Name="Oferta_monedaE" Type="Double" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_ImportadorModelStoreContainer" CdmEntityContainer="BD_ImportadorEntities">
+          <EntitySetMapping Name="lista_registros">
+            <EntityTypeMapping TypeName="BD_ImportadorModel.lista_registros">
+              <MappingFragment StoreEntitySet="lista_registros">
+                <ScalarProperty Name="Oferta_monedaE" ColumnName="Oferta_monedaE" />
+                <ScalarProperty Name="Oferta_monedaC" ColumnName="Oferta_monedaC" />
+                <ScalarProperty Name="Demanda_monedaE" ColumnName="Demanda_monedaE" />
+                <ScalarProperty Name="Demanda_monedaC" ColumnName="Demanda_monedaC" />
+                <ScalarProperty Name="Nombre_ColumnaE" ColumnName="Nombre_ColumnaE" />
+                <ScalarProperty Name="Nombre_ColumnaC" ColumnName="Nombre_ColumnaC" />
+                <ScalarProperty Name="dias_plazo" ColumnName="dias_plazo" />
+                <ScalarProperty Name="plazo" ColumnName="plazo" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
